@@ -72,16 +72,21 @@ export const getCollabServer = async (): Promise<{
       url: process.env.REACT_APP_WS_SERVER_URL,
       polling: true,
     };
-  }
-
-  try {
-    const resp = await fetch(
-      `${process.env.REACT_APP_PORTAL_URL}/collab-server`,
-    );
-    return await resp.json();
-  } catch (error) {
-    console.error(error);
-    throw new Error(t("errors.cannotResolveCollabServer"));
+  } else if (process.env.REACT_APP_PORTAL_URL) {
+    try {
+      const resp = await fetch(
+        `${process.env.REACT_APP_PORTAL_URL}/collab-server`,
+      );
+      return await resp.json();
+    } catch (error) {
+      console.error(error);
+      throw new Error(t("errors.cannotResolveCollabServer"));
+    }
+  } else {
+    return {
+      url: location.origin,
+      polling: true,
+    };
   }
 };
 
