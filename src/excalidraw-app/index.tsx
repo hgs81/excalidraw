@@ -8,7 +8,7 @@ import {
   APP_NAME,
   COOKIES,
   EVENT,
-  TITLE_TIMEOUT,
+  // TITLE_TIMEOUT,
   VERSION_TIMEOUT,
 } from "../constants";
 import { loadFromBlob } from "../data/blob";
@@ -345,10 +345,10 @@ const ExcalidrawWrapper = () => {
       }
     };
 
-    const titleTimeout = setTimeout(
-      () => (document.title = APP_NAME),
-      TITLE_TIMEOUT,
-    );
+    // const titleTimeout = setTimeout(
+    //   () => (document.title = APP_NAME),
+    //   TITLE_TIMEOUT,
+    // );
 
     const syncData = debounce(() => {
       if (isTestEnv()) {
@@ -436,7 +436,7 @@ const ExcalidrawWrapper = () => {
         visibilityChange,
         false,
       );
-      clearTimeout(titleTimeout);
+      // clearTimeout(titleTimeout);
     };
   }, [collabAPI, excalidrawAPI]);
 
