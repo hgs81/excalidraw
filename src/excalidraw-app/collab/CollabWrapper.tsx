@@ -235,20 +235,26 @@ class CollabWrapper extends PureComponent<Props, CollabState> {
   saveCollabRoomToFirebase = async (
     syncableElements: readonly SyncableExcalidrawElement[],
   ) => {
-    try {
-      const savedData = await saveToFirebase(
-        this.portal,
-        syncableElements,
-        this.excalidrawAPI.getAppState(),
-      );
-
-      if (this.isCollaborating() && savedData && savedData.reconciledElements) {
-        this.handleRemoteSceneUpdate(
-          this.reconcileElements(savedData.reconciledElements),
+    if (navigator.onLine) {
+      try {
+        const savedData = await saveToFirebase(
+          this.portal,
+          syncableElements,
+          this.excalidrawAPI.getAppState(),
         );
+
+        if (
+          this.isCollaborating() &&
+          savedData &&
+          savedData.reconciledElements
+        ) {
+          this.handleRemoteSceneUpdate(
+            this.reconcileElements(savedData.reconciledElements),
+          );
+        }
+      } catch (error: any) {
+        console.error(error);
       }
-    } catch (error: any) {
-      console.error(error);
     }
   };
 
