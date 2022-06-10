@@ -22,6 +22,7 @@ import {
   DELETED_ELEMENT_TIMEOUT,
   FILE_UPLOAD_MAX_BYTES,
   ROOM_ID_BYTES,
+  ROOM_DEFAULT_KEY,
 } from "../app_constants";
 import { encodeFilesForUpload } from "./FileManager";
 import { saveFilesToFirebase } from "./firebase";
@@ -145,6 +146,10 @@ export const getCollaborationLinkData = (link: string) => {
   if (match && match[2].length !== 22) {
     window.alert(t("alerts.invalidEncryptionKey"));
     return null;
+  }
+  const matchWithoutKey = hash.match(/^#room=([a-zA-Z0-9_-]+)$/);
+  if (matchWithoutKey) {
+    return { roomId: matchWithoutKey[1], roomKey: ROOM_DEFAULT_KEY };
   }
   return match ? { roomId: match[1], roomKey: match[2] } : null;
 };

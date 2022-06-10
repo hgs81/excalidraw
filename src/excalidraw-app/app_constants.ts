@@ -28,6 +28,7 @@ export const FIREBASE_STORAGE_PREFIXES = {
 };
 
 export const ROOM_ID_BYTES = 10;
+export const ROOM_DEFAULT_KEY = "thisisaverysupersecret";
 
 export const STORAGE_KEYS = {
   LOCAL_STORAGE_ELEMENTS: "excalidraw",
