@@ -8,7 +8,7 @@ import {
   BinaryFileMetadata,
   DataURL,
 } from "../../types";
-import { FILE_CACHE_MAX_AGE_SEC } from "../app_constants";
+import { FILE_CACHE_MAX_AGE_SEC, ROOM_DEFAULT_KEY } from "../app_constants";
 import { decompressData } from "../../data/encode";
 import { encryptData, decryptData } from "../../data/encryption";
 import { MIME_TYPES } from "../../constants";
@@ -218,6 +218,7 @@ export const saveToFirebase = async (
     !roomId ||
     !roomKey ||
     !socket ||
+    roomKey === ROOM_DEFAULT_KEY ||
     isSavedToFirebase(portal, elements)
   ) {
     return false;
